@@ -19,7 +19,7 @@ namespace DemoWebAPI.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public ActionResult<StudentDto> GetStudentList(int id)
+        public ActionResult<Student> GetStudentList(int id)
         {
             if (id == 0)
             {
@@ -37,7 +37,7 @@ namespace DemoWebAPI.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public ActionResult<StudentDto> CreateStudent([FromBody] StudentDto student)
+        public ActionResult<Student> CreateStudent([FromBody] Student student)
         {
             if (student == null)
             {
