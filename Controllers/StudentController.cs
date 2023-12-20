@@ -1,4 +1,5 @@
-﻿using DemoWebAPI.Models;
+﻿using DemoWebAPI.Data;
+using DemoWebAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ namespace DemoWebAPI.Controllers
             {
                 return BadRequest();
             }
-            var studnet = StudentStore.studentList.FirstOrDefault(x => x.Id == id);
+            var studnet = StudentStore.studentList.FirstOrDefault(x => x.studentID == id);
             if (studnet == null)
             {
                 return NotFound();
@@ -43,14 +44,14 @@ namespace DemoWebAPI.Controllers
             {
                 return BadRequest(student);
             }
-            if (student.Id > 0)
+            if (student.studentID > 0)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
-            student.Id = StudentStore.studentList.OrderByDescending(x => x.Id).FirstOrDefault().Id + 1;
+            student.studentID = StudentStore.studentList.OrderBy(s => s.studentID).FirstOrDefault().studentID + 1;
             StudentStore.studentList.Add(student);
 
-            return CreatedAtRoute("GetStudent", new { id = student.Id }, student);
+            return CreatedAtRoute("GetStudent", new { id = student.studentID }, student);
         }
     }
 }
